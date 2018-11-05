@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E45404B2190B851004D8CEE /* WatchKitTimePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E4540492190B851004D8CEE /* WatchKitTimePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2E4540522190B878004D8CEE /* TimePickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4540512190B878004D8CEE /* TimePickerDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2E4540462190B851004D8CEE /* WatchKitTimePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WatchKitTimePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2E4540492190B851004D8CEE /* WatchKitTimePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatchKitTimePicker.h; sourceTree = "<group>"; };
 		2E45404A2190B851004D8CEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2E4540512190B878004D8CEE /* TimePickerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +46,7 @@
 		2E4540482190B851004D8CEE /* WatchKitTimePicker */ = {
 			isa = PBXGroup;
 			children = (
-				2E4540492190B851004D8CEE /* WatchKitTimePicker.h */,
+				2E4540512190B878004D8CEE /* TimePickerDataSource.swift */,
 				2E45404A2190B851004D8CEE /* Info.plist */,
 			);
 			path = WatchKitTimePicker;
@@ -59,7 +59,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E45404B2190B851004D8CEE /* WatchKitTimePicker.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +94,7 @@
 				TargetAttributes = {
 					2E4540452190B851004D8CEE = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -130,6 +130,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E4540522190B878004D8CEE /* TimePickerDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,6 +261,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -276,6 +278,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = tech.calstephens.WatchKitTimePicker;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
 			};
@@ -285,6 +288,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
