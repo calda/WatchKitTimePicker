@@ -16,28 +16,27 @@ public class TimePickerDataSource {
     
     public var selectedTimeDidUpdate: ((Date) -> Void)?
     
-    public init(hoursPicker: WKInterfacePicker, minutesPicker: WKInterfacePicker, amPmPicker: WKInterfacePicker?, initiallySelectedDate: Date?) {
+    public init(
+        hoursPicker: WKInterfacePicker,
+        minutesPicker: WKInterfacePicker,
+        amPmPicker: WKInterfacePicker?)
+    {
         self.hoursPicker = hoursPicker
         self.minutesPicker = minutesPicker
         self.amPmPicker = amPmPicker
-        
-        setup(withInitiallySelectedDate: initiallySelectedDate)
     }
     
     
     // MARK: Setup
     
-    private lazy var timeFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .none
-        formatter.timeStyle = .short
-        return formatter
-    }()
-    
     private lazy var userHas24HourTimeEnabled: Bool = {
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateStyle = .none
+        timeFormatter.timeStyle = .short
+        
         let timeString = timeFormatter.string(from: Date())
         return !(timeString.contains(Locale.current.calendar.amSymbol)
-             || timeString.contains(Locale.current.calendar.pmSymbol))
+              || timeString.contains(Locale.current.calendar.pmSymbol))
     }()
     
     private lazy var hourPickerOptions: [Int] = {
@@ -64,7 +63,7 @@ public class TimePickerDataSource {
         }
     }()
     
-    private func setup(withInitiallySelectedDate initiallySelectedDate: Date?) {
+    public func setup(withInitiallySelectedDate initiallySelectedDate: Date?) {
         hoursPicker?.setItems(hourPickerOptions.map { hourValue in
             let pickerItem = WKPickerItem()
             pickerItem.title = "\(hourValue)"
@@ -113,7 +112,9 @@ public class TimePickerDataSource {
             minutesPicker?.setSelectedItemIndex(corresponsingMinuteIndex)
             selectedMinute = minutePickerOptions[corresponsingMinuteIndex]
             
-            if !userHas24HourTimeEnabled {
+            if userHas24HourTimeEnabled {
+                amPm = nil
+            } else {
                 if hours < 12 {
                     amPmPicker?.setSelectedItemIndex(0)
                     amPm = .am
@@ -132,9 +133,9 @@ public class TimePickerDataSource {
         case am, pm
     }
     
-    private var selectedHour: Int!
-    private var selectedMinute: Int!
-    private var amPm: AMPM?
+    private var selectedHour: Int = 0
+    private var selectedMinute: Int = 0
+    private var amPm: AMPM? = .am
     
     public func hourPickerUpdated(to index: Int) {
         selectedHour = hourPickerOptions[index]
@@ -196,7 +197,7 @@ public class TimePickerDataSource {
     }
     
     public func selectedTime() -> Date {
-        var hourIn24HourTime = selectedHour ?? 0
+        var hourIn24HourTime = selectedHour
         
         // if there's an option for am/pm, the user's in 12 hour time.
         // Need to do the necessary corrections.
