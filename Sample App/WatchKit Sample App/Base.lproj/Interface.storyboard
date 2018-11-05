@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14460.31" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch40" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14460.16"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="WatchKit_Sample_App" customModuleProvider="target">
+                    <items>
+                        <label width="125" alignment="left" text="WatchKit Time Picker" numberOfLines="0" id="MK4-wN-RVX">
+                            <fontDescription key="font" type="boldSystem" pointSize="16"/>
+                        </label>
+                        <group width="1" height="65" alignment="left" id="Y3J-Uj-mKh">
+                            <items>
+                                <picker width="0.3333333" height="1" alignment="left" focusStyle="stack" indicatorMode="shownWhileFocused" id="iNn-oN-6wz">
+                                    <connections>
+                                        <action selector="hourPickerDidUpdate:" destination="AgC-eL-Hgc" id="Atu-Uk-pVb"/>
+                                    </connections>
+                                </picker>
+                                <picker width="0.3333333" height="1" alignment="left" focusStyle="stack" indicatorMode="shownWhileFocused" id="USb-Px-XN2">
+                                    <connections>
+                                        <action selector="minutePickerDidUpdate:" destination="AgC-eL-Hgc" id="Xxb-EP-7Qq"/>
+                                    </connections>
+                                </picker>
+                                <picker width="0.3333333" height="1" alignment="left" focusStyle="stack" indicatorMode="shownWhileFocused" id="Fsz-HC-DD4">
+                                    <connections>
+                                        <action selector="amPmPickerDidUpdate:" destination="AgC-eL-Hgc" id="UM9-0A-A4d"/>
+                                    </connections>
+                                </picker>
+                            </items>
+                        </group>
+                        <label alignment="left" text="Time Label" id="yf2-ul-A0O"/>
+                    </items>
+                    <variation key="device=watch38mm" spacing="10"/>
+                    <variation key="device=watch40mm" spacing="16"/>
+                    <variation key="device=watch42mm" spacing="25"/>
+                    <variation key="device=watch44mm" spacing="25"/>
+                    <connections>
+                        <outlet property="amPmTimePicker" destination="Fsz-HC-DD4" id="KI1-FK-EQZ"/>
+                        <outlet property="hourTimePicker" destination="iNn-oN-6wz" id="HRd-b8-3rr"/>
+                        <outlet property="minuteTimePicker" destination="USb-Px-XN2" id="Re5-yA-6MC"/>
+                        <outlet property="selectedTimeLabel" destination="yf2-ul-A0O" id="ePr-zm-wFR"/>
+                    </connections>
+                </controller>
+            </objects>
+        </scene>
+    </scenes>
+</document>
