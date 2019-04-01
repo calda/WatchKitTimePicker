@@ -14,13 +14,32 @@ public class TimePickerDataSource {
     private weak var minutesPicker: WKInterfacePicker?
     private weak var amPmPicker: WKInterfacePicker?
     
+    private let interval: SelectionInterval
     public var selectedTimeDidUpdate: ((Date) -> Void)?
+    
+    public enum SelectionInterval {
+        case minute
+        case fiveMinutes
+        case fifteenMinutes
+        case halfHour
+        
+        var minutesBetweenOptions: Int {
+            switch self {
+            case .minute: return 1
+            case .fiveMinutes: return 5
+            case .fifteenMinutes: return 15
+            case .halfHour: return 30
+            }
+        }
+    }
     
     public init(
         hoursPicker: WKInterfacePicker,
         minutesPicker: WKInterfacePicker,
-        amPmPicker: WKInterfacePicker?)
+        amPmPicker: WKInterfacePicker?,
+        interval: SelectionInterval = .fiveMinutes)
     {
+        self.interval = interval
         self.hoursPicker = hoursPicker
         self.minutesPicker = minutesPicker
         self.amPmPicker = amPmPicker
@@ -48,10 +67,10 @@ public class TimePickerDataSource {
         }
     }()
     
-    private lazy var minutePickerOptions: [Int] = {
-        // create 0-60 minute entries for all 24 hours in the day.
-        return Array(repeating: Array(stride(from: 0, to: 60, by: 5)), count: 24).flatMap { $0 }
-    }()
+    /// 0-60 minute entries for all 24 hours in the day.
+    private lazy var minutePickerOptions: [Int] = { (interval: SelectionInterval) in
+        Array(repeating: Array(stride(from: 0, to: 60, by: interval.minutesBetweenOptions)), count: 24).flatMap { $0 }
+    }(self.interval)
     
     private lazy var amPmPickerOptions: [String]? = {
         if userHas24HourTimeEnabled {

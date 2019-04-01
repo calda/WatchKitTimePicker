@@ -22,7 +22,8 @@ class InterfaceController: WKInterfaceController {
         timePickerDataSource = TimePickerDataSource(
             hoursPicker: hourTimePicker,
             minutesPicker: minuteTimePicker,
-            amPmPicker: amPmTimePicker)
+            amPmPicker: amPmTimePicker,
+            interval: .fiveMinutes)
         
         timePickerDataSource.selectedTimeDidUpdate = { [weak self] selectedTime in
             let timeFormatter = DateFormatter()
