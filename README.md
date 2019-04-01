@@ -54,7 +54,8 @@ class InterfaceController: WKInterfaceController {
         timePickerDataSource = TimePickerDataSource(
             hoursPicker: hourTimePicker,
             minutesPicker: minuteTimePicker,
-            amPmPicker: amPmTimePicker)
+            amPmPicker: amPmTimePicker,
+            interval: .fiveMinutes) // supports .minute, .fiveMinutes, .fifteenMinutes, and .halfHour
         
         timePickerDataSource.selectedTimeDidUpdate = { selectedTime in
             // ...
