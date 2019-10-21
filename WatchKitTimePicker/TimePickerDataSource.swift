@@ -33,6 +33,8 @@ public class TimePickerDataSource {
         }
     }
     
+    private var pickersAreSetUp: Bool = false
+
     public init(
         hoursPicker: WKInterfacePicker,
         minutesPicker: WKInterfacePicker,
@@ -117,9 +119,17 @@ public class TimePickerDataSource {
             minutesPicker?.setRelativeWidth(0.5, withAdjustment: 0)
         }
         
+        pickersAreSetUp = true
+
         // set the initial values of the pickers
         if let initiallySelectedDate = initiallySelectedDate {
-            let dateComponents = Calendar.current.dateComponents(Set(arrayLiteral: .hour, .minute), from: initiallySelectedDate)
+            setDate(withDate: initiallySelectedDate)
+        }
+    }
+
+    public func setDate(withDate date: Date) {
+        if pickersAreSetUp {
+            let dateComponents = Calendar.current.dateComponents(Set(arrayLiteral: .hour, .minute), from: date)
             let hours = dateComponents.hour!
             let minutes = dateComponents.minute!
             
@@ -142,6 +152,8 @@ public class TimePickerDataSource {
                     amPm = .pm
                 }
             }
+        } else {
+            setup(withInitiallySelectedDate: date)
         }
     }
     
