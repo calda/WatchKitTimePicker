@@ -61,7 +61,7 @@ class InterfaceController: WKInterfaceController {
             // ...
         }
         
-        timePickerDataSource.setup(withInitiallySelectedDate: Date())
+        timePickerDataSource.updateDate(to: Date())
     }
     
     @IBAction func hourPickerDidUpdate(_ index: Int) {
