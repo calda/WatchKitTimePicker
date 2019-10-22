@@ -33,8 +33,6 @@ public class TimePickerDataSource {
         }
     }
     
-    private var pickersAreSetUp: Bool = false
-
     public init(
         hoursPicker: WKInterfacePicker,
         minutesPicker: WKInterfacePicker,
@@ -45,6 +43,8 @@ public class TimePickerDataSource {
         self.hoursPicker = hoursPicker
         self.minutesPicker = minutesPicker
         self.amPmPicker = amPmPicker
+
+        setup()
     }
     
     
@@ -83,8 +83,8 @@ public class TimePickerDataSource {
                 Locale.current.calendar.pmSymbol]
         }
     }()
-    
-    public func setup(withInitiallySelectedDate initiallySelectedDate: Date?) {
+
+    private func setup() {
         hoursPicker?.setItems(hourPickerOptions.map { hourValue in
             let pickerItem = WKPickerItem()
             pickerItem.title = "\(hourValue)"
@@ -118,42 +118,31 @@ public class TimePickerDataSource {
             hoursPicker?.setRelativeWidth(0.5, withAdjustment: 0)
             minutesPicker?.setRelativeWidth(0.5, withAdjustment: 0)
         }
-        
-        pickersAreSetUp = true
-
-        // set the initial values of the pickers
-        if let initiallySelectedDate = initiallySelectedDate {
-            setDate(withDate: initiallySelectedDate)
-        }
     }
 
-    public func setDate(withDate date: Date) {
-        if pickersAreSetUp {
-            let dateComponents = Calendar.current.dateComponents(Set(arrayLiteral: .hour, .minute), from: date)
-            let hours = dateComponents.hour!
-            let minutes = dateComponents.minute!
-            
-            hoursPicker?.setSelectedItemIndex(hours)
-            selectedHour = hourPickerOptions[hours]
-            
-            let displayedMinutesPerHour = minutePickerOptions.count / 24
-            let corresponsingMinuteIndex = (minutePickerOptions.firstIndex(where: { $0 >= minutes }) ?? 0) + (displayedMinutesPerHour * hours)
-            minutesPicker?.setSelectedItemIndex(corresponsingMinuteIndex)
-            selectedMinute = minutePickerOptions[corresponsingMinuteIndex]
-            
-            if userHas24HourTimeEnabled {
-                amPm = nil
-            } else {
-                if hours < 12 {
-                    amPmPicker?.setSelectedItemIndex(0)
-                    amPm = .am
-                } else {
-                    amPmPicker?.setSelectedItemIndex(1)
-                    amPm = .pm
-                }
-            }
+    public func updateDate(to date: Date) {
+        let dateComponents = Calendar.current.dateComponents(Set(arrayLiteral: .hour, .minute), from: date)
+        let hours = dateComponents.hour!
+        let minutes = dateComponents.minute!
+
+        hoursPicker?.setSelectedItemIndex(hours)
+        selectedHour = hourPickerOptions[hours]
+
+        let displayedMinutesPerHour = minutePickerOptions.count / 24
+        let corresponsingMinuteIndex = (minutePickerOptions.firstIndex(where: { $0 >= minutes }) ?? 0) + (displayedMinutesPerHour * hours)
+        minutesPicker?.setSelectedItemIndex(corresponsingMinuteIndex)
+        selectedMinute = minutePickerOptions[corresponsingMinuteIndex]
+
+        if userHas24HourTimeEnabled {
+            amPm = nil
         } else {
-            setup(withInitiallySelectedDate: date)
+            if hours < 12 {
+                amPmPicker?.setSelectedItemIndex(0)
+                amPm = .am
+            } else {
+                amPmPicker?.setSelectedItemIndex(1)
+                amPm = .pm
+            }
         }
     }
     
