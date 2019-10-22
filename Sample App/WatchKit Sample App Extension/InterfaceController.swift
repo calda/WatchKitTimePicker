@@ -33,7 +33,7 @@ class InterfaceController: WKInterfaceController {
             self?.selectedTimeLabel.setText(timeFormatter.string(from: selectedTime))
         }
         
-        timePickerDataSource.setup(withInitiallySelectedDate: Date())
+        timePickerDataSource.updateDate(to: Date())
     }
     
     @IBAction func hourPickerDidUpdate(_ index: Int) {
